@@ -1,0 +1,1184 @@
+{
+	"info": {
+		"_postman_id": "b0db4c66-ccd0-43d4-b838-f469808edde0",
+		"name": "Dummy API",
+		"description": "This page will contains all rest service .Thease are Fake Online REST API for Testing and Prototyping of sample application which are using rest call to display listing and crud features. You can use this rest api tutorials, faking a server, sharing code examples.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Criar empregados",
+			"item": [
+				{
+					"name": "Validar criar empregado - Sucesso",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ac0b8c5a-b3fe-4733-b953-e1b8ea3a138a",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'success';",
+									"",
+									"tests[\"Name should match given nomeGerado\"] = jsonData.data.name === postman.getEnvironmentVariable(\"nomeGerado\");",
+									"",
+									"tests[\"Salary should match given salarioGerado\"] = jsonData.data.salary === postman.getEnvironmentVariable(\"salarioGerado\");",
+									"",
+									"tests[\"Age should match given salarioGerado\"] = jsonData.data.age === postman.getEnvironmentVariable(\"idadeGerada\");",
+									"",
+									"postman.setEnvironmentVariable(\"idCadastrado\", jsonData.data.id);",
+									"",
+									"",
+									"",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ffd59a9e-bd64-4528-977d-c69fda9788c4",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{nomeGerado}}\",\n    \"salary\": \"{{salarioGerado}}\",\n    \"age\": \"{{idadeGerada}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar criar empregado – Nome String Vazia",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "660d12c8-1e75-4477-b102-a491ddc39c29",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0dad48c8-4ee5-4251-88d8-a0bdc843ef31",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'false';",
+									"",
+									"tests[\"Message should match given nomeIvalido\"] = jsonData.data.mensage === postman.getEnvironmentVariable(\"nomeInvalido\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"salary\": \"{{salarioGerado}}\",\n    \"age\": \"{{idadeGerada}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar criar empregado – Nome Null",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1953d612-e9aa-411a-ac32-dd3d0a969897",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "cdf8535b-511d-4023-b01f-c626a4ea4718",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'false';",
+									"",
+									"tests[\"Message should match given nomeIvalido\"] = jsonData.data.mensage === postman.getEnvironmentVariable(\"nomeInvalido\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": null,\n    \"salary\": \"{{salarioGerado}}\",\n    \"age\": \"{{idadeGerada}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar criar empregado – Sem nome",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e32ce214-395f-43e7-9363-5db4d4e492d2",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d6898f28-845b-4765-a6f4-4d2f8f6415b0",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'false';",
+									"",
+									"tests[\"Message should match given nomeIvalido\"] = jsonData.data.mensage === postman.getEnvironmentVariable(\"nomeInvalido\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": ,\n    \"salary\": \"{{salarioGerado}}\",\n    \"age\": \"{{idadeGerada}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar criar empregado – Idade String Vazia",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d898b6d1-5e47-429a-b5ea-8b262fba2b94",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1e52663a-1d6a-49a7-ad2f-0f3601440ef4",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'false';",
+									"",
+									"tests[\"Message should match given idadeInvalida\"] = jsonData.data.mensage === postman.getEnvironmentVariable(\"idadeInvalida\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{nomeGerado}}\",\n    \"salary\": \"{{salarioGerado}}\",\n    \"age\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar criar empregado – Idade Null",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "162d8bbd-6eb8-41a5-b827-d45ee0367ad6",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a4970b0e-9c94-42bd-8376-0527454e2706",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'false';",
+									"",
+									"tests[\"Message should match given idadeInvalida\"] = jsonData.data.mensage === postman.getEnvironmentVariable(\"idadeInvalida\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{nomeGerado}}\",\n    \"salary\": \"{{salarioGerado}}\",\n    \"age\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar criar empregado – Sem idade",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e26c724e-dd86-47c8-ade7-46c69e420033",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d099726f-06de-4c93-bf7d-c4c14cdd4a5a",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'false';",
+									"",
+									"tests[\"Message should match given idadeInvalida\"] = jsonData.data.mensage === postman.getEnvironmentVariable(\"idadeInvalida\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{nomeGerado}}\",\n    \"salary\": \"{{salarioGerado}}\",\n    \"age\": \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/api/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar criar empregado – Idade Negativa",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "89fb8de1-e587-4479-97e3-b6e3b318fe13",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f60cce5b-a40f-4219-b34d-497129ac29ed",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'false';",
+									"",
+									"tests[\"Message should match given idadeInvalida\"] = jsonData.data.mensage === postman.getEnvironmentVariable(\"idadeInvalida\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{nomeGerado}}\",\n    \"salary\": \"{{salarioGerado}}\",\n    \"age\": -20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar criar empregado – Idade Negativa 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "47aef280-1d73-4d6c-99f1-86164886c2c2",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd0f3492-10c0-4992-b20c-d5d7fe8d6dd6",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'false';",
+									"",
+									"tests[\"Message should match given idadeInvalida\"] = jsonData.data.mensage === postman.getEnvironmentVariable(\"idadeInvalida\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{nomeGerado}}\",\n    \"salary\": \"{{salarioGerado}}\",\n    \"age\": -20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar criar empregado – Idade Altíssima",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "cc2982a0-d41e-4230-b981-3f6400fd0acc",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a967e452-41c3-4f5e-9c04-5caa4961e9a0",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'false';",
+									"",
+									"tests[\"Message should match given idadeInvalida\"] = jsonData.data.mensage === postman.getEnvironmentVariable(\"idadeInvalida\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{nomeGerado}}\",\n    \"salary\": \"{{salarioGerado}}\",\n    \"age\": 200\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar criar empregado – Idade Altíssima 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1897603c-9a82-4996-a571-0979ba135fd6",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "c88ce885-7bb8-42a9-8896-7c758ee0833a",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'false';",
+									"",
+									"tests[\"Message should match given idadeInvalida\"] = jsonData.data.mensage === postman.getEnvironmentVariable(\"idadeInvalida\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{nomeGerado}}\",\n    \"salary\": \"{{salarioGerado}}\",\n    \"age\": \"200\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar criar empregado – Salário String Vazia",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8567e7e7-436f-4568-b381-ed04bde08ae4",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b0b22ba3-bff8-4293-a293-8c42174a7ba1",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'false';",
+									"",
+									"tests[\"Message should match given salarioInvalido\"] = jsonData.data.mensage === postman.getEnvironmentVariable(\"salarioInvalido\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{nomeGerado}}\",\n    \"salary\": \"\",\n    \"age\": \"{{idadeGerada}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar criar empregado – Salário Null",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "228a33d7-3369-499d-8e22-6885abc08690",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9ac20b54-961a-44e7-9c9c-c3a70d7ecc95",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'false';",
+									"",
+									"tests[\"Message should match given salarioInvalido\"] = jsonData.data.mensage === postman.getEnvironmentVariable(\"salarioInvalido\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{nomeGerado}}\",\n    \"salary\": null,\n    \"age\": \"{{idadeGerada}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar criar empregado – Sem Salário",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b06195d4-4040-48ec-b474-1fffa7ed0ba7",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "98869aa6-65b4-4988-9e9c-0eb52d9c28ac",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'false';",
+									"",
+									"tests[\"Message should match given salarioInvalido\"] = jsonData.data.mensage === postman.getEnvironmentVariable(\"salarioInvalido\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{nomeGerado}}\",\n    \"salary\": ,\n    \"age\": \"{{idadeGerada}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar criar empregado – Salário Negativa",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4a1b747e-0507-472d-bc3c-0f7d1b407361",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b6876a62-c862-4e56-8980-a2e712fc029d",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'false';",
+									"",
+									"tests[\"Message should match given salarioInvalido\"] = jsonData.data.mensage === postman.getEnvironmentVariable(\"salarioInvalido\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{nomeGerado}}\",\n    \"salary\": -2000,\n    \"age\": \"{{idadeGerada}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar criar empregado – Salário Negativa 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c196b238-98e6-48e3-aa4c-9ff727b3336c",
+								"exec": [
+									"function getRandomIntInclusive(min, max) {",
+									"    min = Math.ceil(min);",
+									"    max = Math.floor(max);",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"var ListNomes = [\"Debora Kaynara Patricio da Silva\", \"Glaucia Adriana Dantas Pereira\", \"Isabele Acciolo P. Lima\", \"Vausck Maria L. da Costa\", \"Joane Maria da Silva Carvalho\", \"Kênia Stephanie Nunes Arruda\", \"Luana Nascimento dos Santos\", \"Maria Gisele da Silva de Oliveira\", \"Milena Rolim da Silva\", \"Moema Iris Soares da Silva\", \"Diogo Fernandes de Souza\", \"Alexsandra Santana dos Santos\", \"Elivelton Costa da Silva\", \"Aline Aprígio da Silva\", \"Gerdon Adler Ribeiro Mafra\", \"Ana Priscila de Meireles de Melo\", \"Guilherme Azevedo Reis\", \"Anne Maria de Alves\", \"Igor Jefferson do Nascimento\", \"Anny Karoliny Oliveira Lima\", \"Jhony Kleyton do Nascimento\", \"Aracelly Maria Guerra Azevedo\", \"Paulo Holanda Ribeiro Netto\", \"Debora Kaynara Patricio da Silva\", \"Rafael Victor\", \"Dinara Regina Azevedo Gadelha\", \"Ramon Douglas Neves de Andrade\", \"Edilmara das Neves Silva\", \"Rubens Rauen\", \"Gabriela Freire Cordeiro de Oliveira \"];",
+									"",
+									"var posicaoNomeGerao = getRandomIntInclusive(0, 29);",
+									"var idadeGerada = getRandomIntInclusive(1, 100);",
+									"var salarioGerado = getRandomIntInclusive(1000, 100000);",
+									"",
+									"postman.setEnvironmentVariable(\"nomeGerado\", ListNomes[posicaoNomeGerao]);",
+									"postman.setEnvironmentVariable(\"idadeGerada\", idadeGerada);",
+									"postman.setEnvironmentVariable(\"salarioGerado\", salarioGerado);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a998456e-f58d-4cff-badf-2316f2ecda2d",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'false';",
+									"",
+									"tests[\"Message should match given salarioInvalido\"] = jsonData.data.mensage === postman.getEnvironmentVariable(\"salarioInvalido\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{nomeGerado}}\",\n    \"salary\": \"-2000\",\n    \"age\": \"{{idadeGerada}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{EndPoint}}/v1/create",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca Empregado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c5cc558a-2001-4564-adc2-d43856b627be",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = pm.response.json();",
+									"tests[\"Status success\"] = jsonData.status === 'success';",
+									"",
+									"tests[\"Name should match given nomeGerado\"] = jsonData.data.employee_name === postman.getEnvironmentVariable(\"nomeGerado\");",
+									"",
+									"tests[\"Salary should match given salarioGerado\"] = jsonData.data.employee_salary === postman.getEnvironmentVariable(\"salarioGerado\");",
+									"",
+									"tests[\"Age should match given salarioGerado\"] = jsonData.data.employee_age === postman.getEnvironmentVariable(\"idadeGerada\");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{EndPoint}}/v1/employee/{{idCadastrado}}",
+							"host": [
+								"{{EndPoint}}"
+							],
+							"path": [
+								"v1",
+								"employee",
+								"{{idCadastrado}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Create employee data using rest /employee.",
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "d61bc3a9-573f-4713-9b92-5d4a47501bda",
+				"type": "text/javascript",
+				"exec": [
+					"",
+					"",
+					"",
+					"",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3ae17695-4cc7-4cc0-a316-46ed515fae2d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
